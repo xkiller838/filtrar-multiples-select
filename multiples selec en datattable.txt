@@ -1,0 +1,28 @@
+
+    $('select.equipos').on('change', function () {
+        var columnIndex = 1;
+        filterBySelect(columnIndex, 'select.equipos');
+        table.draw();
+    });
+    $('select.categorias').on('change', function () {
+        var columnIndex = 5;
+        filterBySelect(columnIndex, 'select.categorias');
+        table.draw();
+    });
+});
+
+function filterBySelect(columnIndex, dropdown) {
+    // console.log(columnIndex);
+    // console.log(dropdown);
+    $.fn.dataTableExt.afnFiltering.push( function (oSettings, aData, iDataIndex) {
+            var optionSelected = $(dropdown).val();
+            console.log(optionSelected);
+            if ( optionSelected.length <= 0 ) {
+                return true;
+        }
+        if ( optionSelected.length > 0 && optionSelected.indexOf(aData[columnIndex].toString()) >= 0 ) {
+                return true;
+            }
+              return false;
+    });
+}
